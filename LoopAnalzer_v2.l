@@ -5,9 +5,9 @@ int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
 
 %%
 
-"for"       { forLoopCount++; printf("Found 'for' loop on line %d\n", noOfLines); }
-"do"        { doWhileLoopCount++; printf("Found 'do-while' loop on line %d\n", noOfLines); }
-"while"     { whileLoopCount++; printf("Found 'while' loop on line %d\n", noOfLines); }
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{ { forLoopCount++; printf("Found 'for' loop on line %d\n", noOfLines); }
+while[ \t]*\([^)]*\)[ \t]*\{ { whileLoopCount++; printf("Found 'while' loop on line %d\n", noOfLines); }
+do[ \t]*\{[^}]*\}[ \t]*while[ \t]*\([^;]*\); { doWhileLoopCount++; printf("Found 'do-while' loop on line %d\n", noOfLines); }
 
 \n        { noOfLines++; }
 .         { } // Ignore all other characters
