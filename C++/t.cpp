@@ -2,31 +2,28 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     cout << "Hello World!" << endl;
-    cout << "For loop" << endl;
+    cout << "for loop" << endl;
 
-    for (int i = 0; i < 10; i++)
-    {
+    for (int i = 0; i < 10; i++) {
         cout << i << endl;
     }
 
     cout << "While loop" << endl;
     int j = 0;
-    while (j < 10)
-    {
+    while (j < 10) {
         cout << j << endl;
         j++;
     }
 
     cout << "Do-while loop" << endl;
     int k = 0;
-    do
-    {
+    do {
         cout << k << endl;
         k++;
     } while (k < 10);
 
+    cout << "Nested for loop" << endl;
     return 0;
 }

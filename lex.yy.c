@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 6
-#define YY_END_OF_BUFFER 7
+#define YY_NUM_RULES 9
+#define YY_END_OF_BUFFER 10
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -362,11 +362,11 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[48] =
     {   0,
-        0,    0,    7,    5,    4,    5,    5,    5,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    1,    0,    2,
-        0,    0,    0,    0,    0,    3,    0
+        0,    0,   10,    8,    7,    8,    8,    8,    3,    0,
+        0,    0,    0,    1,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    2,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    4,    0,    5,
+        0,    0,    0,    0,    0,    6,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -471,8 +471,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "LoopAnalzer_v2.l"
-#line 2 "LoopAnalzer_v2.l"
+#line 1 "LoopAnalzer_v3.l"
+#line 2 "LoopAnalzer_v3.l"
 #include <stdio.h>
 int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
 #line 478 "lex.yy.c"
@@ -693,10 +693,12 @@ YY_DECL
 		}
 
 	{
-#line 6 "LoopAnalzer_v2.l"
+#line 6 "LoopAnalzer_v3.l"
 
 
-#line 699 "lex.yy.c"
+#line 9 "LoopAnalzer_v3.l"
+    /* Regular Expressions for tokens */
+#line 701 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -754,40 +756,71 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 8 "LoopAnalzer_v2.l"
-{ forLoopCount++; printf("Found 'for' loop on line %d\n", noOfLines); }
+#line 10 "LoopAnalzer_v3.l"
+{
+    printf("Found token 'for' on line: %d\n", noOfLines); 
+}
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 9 "LoopAnalzer_v2.l"
-{ whileLoopCount++; printf("Found 'while' loop on line %d\n", noOfLines); }
+#line 14 "LoopAnalzer_v3.l"
+{
+    printf("Found token 'while' on line: %d\n", noOfLines); 
+}
 	YY_BREAK
 case 3:
-/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 10 "LoopAnalzer_v2.l"
-{ doWhileLoopCount++; printf("Found 'do-while' loop on line %d\n", noOfLines); }
+#line 18 "LoopAnalzer_v3.l"
+{
+    printf("Found token 'do' on line: %d\n", noOfLines); 
+}
 	YY_BREAK
+/* Regular Expressions for loops */
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 12 "LoopAnalzer_v2.l"
-{ noOfLines++; }
+#line 23 "LoopAnalzer_v3.l"
+{
+    printf("Found 'for Loop' on line: %d\n", noOfLines); 
+    forLoopCount++;
+}
 	YY_BREAK
 case 5:
+/* rule 5 can match eol */
 YY_RULE_SETUP
-#line 13 "LoopAnalzer_v2.l"
-{ } // Ignore all other characters
+#line 29 "LoopAnalzer_v3.l"
+{
+    printf("Found 'while Loop' on line: %d\n", noOfLines); 
+    whileLoopCount++;
+}
 	YY_BREAK
 case 6:
+/* rule 6 can match eol */
 YY_RULE_SETUP
-#line 14 "LoopAnalzer_v2.l"
+#line 35 "LoopAnalzer_v3.l"
+{
+    printf("Found 'do-while Loop' on line: %d\n", noOfLines); 
+    doWhileLoopCount++;
+}
+	YY_BREAK
+case 7:
+/* rule 7 can match eol */
+YY_RULE_SETUP
+#line 40 "LoopAnalzer_v3.l"
+{ noOfLines++; } // Count number of lines
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 41 "LoopAnalzer_v3.l"
+{ } // Ignore all other characters
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 42 "LoopAnalzer_v3.l"
 ECHO;
 	YY_BREAK
-#line 790 "lex.yy.c"
+#line 823 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1792,12 +1825,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 14 "LoopAnalzer_v2.l"
+#line 42 "LoopAnalzer_v3.l"
 
 
 int main() {
 
-    yyin = fopen("c++/t2.cpp", "r");
+    yyin = fopen("c++/t.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;
@@ -1805,13 +1838,13 @@ int main() {
 
     yylex();
 
-    printf("\n");
+    printf("\n -- Summary -- \n");
     printf("Total number of lines: %d\n", noOfLines);
     printf("Total number of loops: %d\n", forLoopCount + whileLoopCount + doWhileLoopCount);
+    printf("\n -- Breakdown of loops -- \n");
     printf("Number of for loops: %d\n", forLoopCount);
     printf("Number of while loops: %d\n", whileLoopCount);
     printf("Number of do-while loops: %d\n", doWhileLoopCount);
-    printf("\n");
 
     fclose(yyin); // Close the file
         
@@ -1821,3 +1854,4 @@ int main() {
 int yywrap() {
     return 1;
 }
+

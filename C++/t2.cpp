@@ -2,15 +2,12 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     cout << "Hello World!" << endl;
     cout << "Nested for loop" << endl;
 
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 5; j++) {
             cout << i * j << endl;
         }
     }
