@@ -24,11 +24,10 @@ for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{ {
     forLoopCount++;
 }
     /* For loop with no brackets on the same line */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*$ {
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n] {
     printf("Found 'for Loop with no brackets' on line: %d\n", noOfLines);
     forLoopCount++;
 }
-
 
 while[ \t]*\([^)]*\)[ \t]*\{ {
     printf("Found 'while Loop' on line: %d\n", noOfLines); 
@@ -36,7 +35,7 @@ while[ \t]*\([^)]*\)[ \t]*\{ {
 }
 
     /* While loop with no brackets on the same line */
-while[ \t]*\([^)]*\)[ \t]*$ {
+while[ \t]*\([^)]*\)[ \t]*[ \n] {
     printf("Found 'while Loop with no brackets' on line: %d\n", noOfLines);
     whileLoopCount++;
 }
@@ -47,7 +46,7 @@ do[ \t]*\{[^}]*\}[ \t]*while[ \t]*\([^;]*\); {
 }
 
     /* Do-while loop with no brackets on the same line */
-do[ \t]*$[^}]*$[ \t]*while[ \t]*\([^;]*\); {
+do[ \t]*[ \n][^}]*[ \n][ \t]*while[ \t]*\([^;]*\); {
     printf("Found 'do-while Loop with no brackets' on line: %d\n", noOfLines);
     doWhileLoopCount++;
 }
