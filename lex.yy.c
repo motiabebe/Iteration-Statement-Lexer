@@ -1,5 +1,5 @@
 
-#line 3 "lex.yy.c"
+#line 2 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -618,15 +618,9 @@ char *yytext;
 #line 1 "LoopAnalyzer_v3.l"
 #line 2 "LoopAnalyzer_v3.l"
 #include <stdio.h>
-<<<<<<< HEAD
-int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1, noOfNestedLoops = 0, inside_for_loop = 0;
+int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, nestedForLoopCount = 0, noOfLines = 1;
 #line 622 "lex.yy.c"
 #line 623 "lex.yy.c"
-=======
-int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
-#line 565 "lex.yy.c"
-#line 566 "lex.yy.c"
->>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
 
 #define INITIAL 0
 
@@ -867,12 +861,7 @@ YY_DECL
 
     */
 
-<<<<<<< HEAD
 #line 864 "lex.yy.c"
-=======
-    /* expression for incomplete for loop */
-#line 808 "lex.yy.c"
->>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -951,23 +940,15 @@ case 3:
 YY_RULE_SETUP
 #line 39 "LoopAnalyzer_v3.l"
 {
-    if (!inside_for_loop) {
-        printf("condition met\n");
-        if (yytext[0] == '\n') {
-            printf("another line\n");
-            inside_for_loop++;
-        }
-    }
-    printf("inside_for_loop: %d\n", inside_for_loop);
     printf("Found a nested 'for' loop with brackets on the next line on line: %d\n", noOfLines);
-    noOfNestedLoops++;
+    nestedForLoopCount++;
 }
 	YY_BREAK
 /* expression for for loop */
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 52 "LoopAnalyzer_v3.l"
+#line 44 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'for' loop on line: %d\n", noOfLines); 
     forLoopCount++;
@@ -977,7 +958,7 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 58 "LoopAnalyzer_v3.l"
+#line 50 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'for' loop with brackets on the next line on line: %d\n", noOfLines);
     forLoopCount++;
@@ -995,7 +976,7 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 76 "LoopAnalyzer_v3.l"
+#line 69 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'while' loop on line: %d\n", noOfLines); 
     whileLoopCount++;
@@ -1005,7 +986,7 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 82 "LoopAnalyzer_v3.l"
+#line 75 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'while' loop with brackets on the next line on line: %d\n", noOfLines);
     whileLoopCount++;
@@ -1023,7 +1004,7 @@ YY_RULE_SETUP
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 97 "LoopAnalyzer_v3.l"
+#line 90 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'do-while' loop on line: %d\n", noOfLines); 
     doWhileLoopCount++;
@@ -1033,7 +1014,7 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 103 "LoopAnalyzer_v3.l"
+#line 96 "LoopAnalyzer_v3.l"
 {
     printf("Found a 'do-while' loop with brackets on the next line on line: %d\n", noOfLines);
     doWhileLoopCount++;
@@ -1042,24 +1023,20 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 109 "LoopAnalyzer_v3.l"
+#line 102 "LoopAnalyzer_v3.l"
 { noOfLines++; } // Count number of lines
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 110 "LoopAnalyzer_v3.l"
+#line 103 "LoopAnalyzer_v3.l"
 { } // Ignore all other characters
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 111 "LoopAnalyzer_v3.l"
+#line 104 "LoopAnalyzer_v3.l"
 ECHO;
 	YY_BREAK
-<<<<<<< HEAD
-#line 1047 "lex.yy.c"
-=======
-#line 965 "lex.yy.c"
->>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
+#line 1039 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2064,10 +2041,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 111 "LoopAnalyzer_v3.l"
+#line 104 "LoopAnalyzer_v3.l"
 
 
 int main() {
+
 
     yyin = fopen("C++/t3.cpp", "r");
     if (yyin == NULL) {
@@ -2077,9 +2055,7 @@ int main() {
 
     yylex();
 
-    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount + noOfNestedLoops;
-
-    printf("inside_for_loop: %d\n", inside_for_loop);
+    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount + nestedForLoopCount;
 
     printf("\n -- Summary -- \n");
     printf("Expected number of lines: %d\n", 70);
@@ -2087,7 +2063,7 @@ int main() {
     printf("Expected number of loops: %d\n", 7);
     printf("Total number of loops: %d\n", totalLoops);
     printf("\n -- Breakdown of loops -- \n");
-    printf("Number of nested loops: %d\n", noOfNestedLoops);
+    printf("Number of nested loops: %d\n", nestedForLoopCount);
     printf("Number of for loops: %d\n", forLoopCount);
     printf("Number of while loops: %d\n", whileLoopCount);
     printf("Number of do-while loops: %d\n", doWhileLoopCount);
