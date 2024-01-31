@@ -104,7 +104,9 @@ int main() {
     int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount;
 
     printf("\n -- Summary -- \n");
+    printf("Expected number of lines: %d\n", 70);
     printf("Total number of lines: %d\n", noOfLines);
+    printf("Expected number of loops: %d\n", 8);
     printf("Total number of loops: %d\n", totalLoops);
     printf("\n -- Breakdown of loops -- \n");
     printf("Number of for loops: %d\n", forLoopCount);
