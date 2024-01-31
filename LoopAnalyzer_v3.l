@@ -93,7 +93,8 @@ do[ \n]*\{[ \n]*[^}]*[ \n]*\}[ \t]*while[ \t]*\([^;]*\); {
 
 int main() {
 
-    yyin = fopen("c++/t3.cpp", "r");
+
+    yyin = fopen("C++/t3.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;
