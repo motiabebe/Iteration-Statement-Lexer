@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
+int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1, noOfNestedLoops = 0;
 %}
 
 %%
@@ -25,11 +25,20 @@ int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
 
     */
 
+\"[a-zA-z 0-9]\"*   {
+    printf("");
+}
+
     /* expression for incomplete for loop */
 "for"[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]* {
     printf("Found a 'for' loop token on line: %d\n", noOfLines);
 }
 
+    /* expression for for loop with brackets on the next line */
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[ \n]*for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\}[^}]*\} {
+    printf("Found a nested 'for' loop with brackets on the next line on line: %d\n", noOfLines);
+    noOfNestedLoops++;
+}
     /* expression for for loop */
 for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{[^}]*\} {
     printf("Found a 'for' loop on line: %d\n", noOfLines); 
@@ -41,6 +50,8 @@ for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\} {
     printf("Found a 'for' loop with brackets on the next line on line: %d\n", noOfLines);
     forLoopCount++;
 }
+
+
 
 
 
@@ -101,14 +112,15 @@ int main() {
 
     yylex();
 
-    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount;
+    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount + nestedForLoopCount;
 
     printf("\n -- Summary -- \n");
     printf("Expected number of lines: %d\n", 70);
     printf("Total number of lines: %d\n", noOfLines);
-    printf("Expected number of loops: %d\n", 8);
+    printf("Expected number of loops: %d\n", 7);
     printf("Total number of loops: %d\n", totalLoops);
     printf("\n -- Breakdown of loops -- \n");
+    printf("Number of nested loops: %d\n", noOfNestedLoops);
     printf("Number of for loops: %d\n", forLoopCount);
     printf("Number of while loops: %d\n", whileLoopCount);
     printf("Number of do-while loops: %d\n", doWhileLoopCount);

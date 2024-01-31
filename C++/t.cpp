@@ -6,7 +6,9 @@ int main() {
     cout << "Hello World!" << endl;
     cout << "for loop" << endl;
 
-    for (int i = 0; i < 10; i++) 
+    for (int i = 0; i < 10; i++) {
+        cout << i << endl;
+    }
 
     cout << "While loop" << endl;
     int j = 0;
