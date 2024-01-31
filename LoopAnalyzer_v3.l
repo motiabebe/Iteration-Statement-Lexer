@@ -5,49 +5,82 @@ int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
 
 %%
 
-    /* Regular Expressions for tokens */
-"for" {
-    printf("Found token 'for' on line: %d\n", noOfLines); 
-}
-
-"while" {
-    printf("Found token 'while' on line: %d\n", noOfLines); 
-}
-
-"do" {
-    printf("Found token 'do' on line: %d\n", noOfLines); 
-}
-
     /* Regular Expressions for loops */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{ {
-    printf("Found 'for Loop' on line: %d\n", noOfLines); 
-    forLoopCount++;
+
+    /* 
+        [ \t]* = 0 or more spaces or tabs
+        [^;]* = 0 or more characters that are not a semicolon
+        [^)]* = 0 or more characters that are not a closing bracket
+        [^}]* = 0 or more characters that are not a closing curly bracket
+        [ \n] = 0 or more spaces or tabs or new lines
+    */
+
+    /* 
+
+        This section contains expressions for for loops.
+        
+        The first expression is for a for loop that incompletely written.
+        The second expression is for a for loop that is on the same line as the for keyword.
+        The third expression is for a for loop that has the opening bracket on the next line.
+
+    */
+
+    /* expression for incomplete for loop */
+"for"[ \t]*\([^;]*;[^;]*;[^)]*\) {
+    printf("Found a 'for' loop token on line: %d\n", noOfLines);
 }
-    /* For loop with no brackets on the same line */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n] {
-    printf("Found 'for Loop with no brackets' on line: %d\n", noOfLines);
+
+    /* expression for for loop */
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{[^}]*\} {
+    printf("Found 'for' loop on line: %d\n", noOfLines); 
     forLoopCount++;
 }
 
+    /* expression for for loop with brackets on the next line */
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]*\{[^}]*\} {
+    printf("Found 'for' loop with brackets on the next line on line: %d\n", noOfLines);
+    forLoopCount++;
+}
+
+    /* 
+
+        This section contains expressions for while loops.
+        
+        The first expression is for a while loop that is on the same line as the while keyword.
+        The second expression is for a while loop that has the opening bracket on the next line.
+
+    */
+
+    /* expression for while loop */
 while[ \t]*\([^)]*\)[ \t]*\{ {
-    printf("Found 'while Loop' on line: %d\n", noOfLines); 
+    printf("Found 'while' loop on line: %d\n", noOfLines); 
     whileLoopCount++;
 }
 
-    /* While loop with no brackets on the same line */
+    /* expression for while loop with brackets on the next line */
 while[ \t]*\([^)]*\)[ \t]*[ \n] {
-    printf("Found 'while Loop with no brackets' on line: %d\n", noOfLines);
+    printf("Found 'while' loop with brackets on the next line on line: %d\n", noOfLines);
     whileLoopCount++;
 }
 
+    /* 
+
+        This section contains expressions for do-while loops.
+        
+        The first expression is for a do-while loop that is on the same line as the do keyword.
+        The second expression is for a do-while loop that has the opening bracket on the next line.
+
+    */
+
+    /* expression for do-while loop */
 do[ \t]*\{[^}]*\}[ \t]*while[ \t]*\([^;]*\); {
-    printf("Found 'do-while Loop' on line: %d\n", noOfLines); 
+    printf("Found 'do-while' loop on line: %d\n", noOfLines); 
     doWhileLoopCount++;
 }
 
-    /* Do-while loop with no brackets on the same line */
-do[ \t]*[ \n][^}]*[ \n][ \t]*while[ \t]*\([^;]*\); {
-    printf("Found 'do-while Loop with no brackets' on line: %d\n", noOfLines);
+    /* expression for do-while loop with brackets on the next line */
+do[ \n]*\{[ \n]*[^}]*[ \n]*\}[ \t]*while[ \t]*\([^;]*\); {
+    printf("Found 'do-while' loop with brackets on the next line on line: %d\n", noOfLines);
     doWhileLoopCount++;
 }
 
@@ -58,7 +91,7 @@ do[ \t]*[ \n][^}]*[ \n][ \t]*while[ \t]*\([^;]*\); {
 
 int main() {
 
-    yyin = fopen("c++/t2.cpp", "r");
+    yyin = fopen("c++/t3.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;

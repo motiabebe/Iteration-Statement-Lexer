@@ -6,9 +6,7 @@ int main() {
     cout << "Hello World!" << endl;
     cout << "for loop" << endl;
 
-    for (int i = 0; i < 10; i++) {
-        cout << i << endl;
-    }
+    for (int i = 0; i < 10; i++) 
 
     cout << "While loop" << endl;
     int j = 0;
@@ -24,6 +22,5 @@ int main() {
         k++;
     } while (k < 10);
 
-    cout << "Nested for loop" << endl;
     return 0;
 }
