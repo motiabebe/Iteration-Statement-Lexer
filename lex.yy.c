@@ -1,5 +1,5 @@
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -618,9 +618,15 @@ char *yytext;
 #line 1 "LoopAnalyzer_v3.l"
 #line 2 "LoopAnalyzer_v3.l"
 #include <stdio.h>
+<<<<<<< HEAD
 int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1, noOfNestedLoops = 0, inside_for_loop = 0;
 #line 622 "lex.yy.c"
 #line 623 "lex.yy.c"
+=======
+int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, noOfLines = 1;
+#line 565 "lex.yy.c"
+#line 566 "lex.yy.c"
+>>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
 
 #define INITIAL 0
 
@@ -861,7 +867,12 @@ YY_DECL
 
     */
 
+<<<<<<< HEAD
 #line 864 "lex.yy.c"
+=======
+    /* expression for incomplete for loop */
+#line 808 "lex.yy.c"
+>>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1044,7 +1055,11 @@ YY_RULE_SETUP
 #line 111 "LoopAnalyzer_v3.l"
 ECHO;
 	YY_BREAK
+<<<<<<< HEAD
 #line 1047 "lex.yy.c"
+=======
+#line 965 "lex.yy.c"
+>>>>>>> a8a47e1482a320d7e6fd81d904d212bd6894de2a
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2054,7 +2069,7 @@ void yyfree (void * ptr )
 
 int main() {
 
-    yyin = fopen("c++/t3.cpp", "r");
+    yyin = fopen("C++/t3.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;
