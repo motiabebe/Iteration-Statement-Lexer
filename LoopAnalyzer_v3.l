@@ -1,12 +1,4 @@
 %{
-#include <stdio.h>
-int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, nestedForLoopCount = 0, noOfLines = 1;
-%}
-
-%%
-
-    /* Regular Expressions for loops */
-
     /* 
         [ \t]* = 0 or more spaces or tabs
         [^;]* = 0 or more characters that are not a semicolon
@@ -15,45 +7,69 @@ int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0, nestedForLoopCou
         [ \n] = 0 or more spaces or tabs or new lines
     */
 
+#include <stdio.h>
+int forLoopCount = 0, whileLoopCount = 0, doWhileLoopCount = 0;
+int nestedForLoopCount = 0, nestedWhileLoopCount = 0, nestedDoWhileLoopCount = 0;
+int noOfLines = 1;
+
+%}
+
+%%
+
+    /*
+        This section contains expressions for incomplete for loops. 
+     */
+
+    /* for ( */
+for[ \t]*\([ \t]*[ \n]* {
+    printf("Pattern found -> 'for (' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
+    /* for ( ; */
+for[ \t]*\([^;]*;[ \t]*\n {
+    printf("Pattern found -> 'for (;' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
+    /* for ( ; ; */
+for[ \t]*\([^;]*;[^;]*;[ \t]*\n {
+    printf("Pattern found -> 'for (;;' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
+    /* for ( ; ; ) */
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*$ {
+    printf("Pattern found -> 'for (;;)' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
     /* 
 
         This section contains expressions for for loops.
         
-        The first expression is for a for loop that incompletely written.
-        The second expression is for a for loop that is on the same line as the for keyword.
-        The third expression is for a for loop that has the opening bracket on the next line.
+        The first expression is for a for loop that is on the same line as the for keyword.
+        The second expression is for a for loop that has the opening bracket on the next line.
+        The third expression is for a nested for loop that has the opening bracket on the next line.
 
     */
 
-\"[a-zA-z 0-9]\"*   {
-    printf("");
-}
-
-    /* expression for incomplete for loop */
-"for"[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]* {
-    printf("Found a 'for' loop token on line: %d\n", noOfLines);
-}
-
-    /* expression for for loop with brackets on the next line */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[ \n]*for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\}[^}]*\} {
-    printf("Found a nested 'for' loop with brackets on the next line on line: %d\n", noOfLines);
-    nestedForLoopCount++;
-}
     /* expression for for loop */
 for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*\{[^}]*\} {
-    printf("Found a 'for' loop on line: %d\n", noOfLines); 
+    printf("'for' loop on line: %d\n", noOfLines); 
     forLoopCount++;
 }
 
     /* expression for for loop with brackets on the next line */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\} {
-    printf("Found a 'for' loop with brackets on the next line on line: %d\n", noOfLines);
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]*\{[^}]*\} {
+    printf("'for' loop with brackets on the next line on line: %d\n", noOfLines);
     forLoopCount++;
 }
-
-
-
-
+    /* expression for nested for loop with brackets on the next line */
+for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]*\{[ \n]*for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\}[^}]*\} {
+    printf("nested 'for' loop with brackets on the next line on line: %d\n", noOfLines);
+    nestedForLoopCount++;
+}
 
     /* 
 
@@ -104,27 +120,30 @@ do[ \n]*\{[ \n]*[^}]*[ \n]*\}[ \t]*while[ \t]*\([^;]*\); {
 
 int main() {
 
-
-    yyin = fopen("C++/t3.cpp", "r");
+    /* Open the file */
+    yyin = fopen("C++/t4.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;
     }
 
+    /* Scan the file */
     yylex();
 
-    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount + nestedForLoopCount;
+    int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount;
+    int nestedLoops = nestedForLoopCount + nestedWhileLoopCount + nestedDoWhileLoopCount;
 
     printf("\n -- Summary -- \n");
-    printf("Expected number of lines: %d\n", 70);
     printf("Total number of lines: %d\n", noOfLines);
-    printf("Expected number of loops: %d\n", 7);
     printf("Total number of loops: %d\n", totalLoops);
+    printf("Total number of nested loops: %d\n", nestedLoops);
     printf("\n -- Breakdown of loops -- \n");
-    printf("Number of nested loops: %d\n", nestedForLoopCount);
     printf("Number of for loops: %d\n", forLoopCount);
+    printf("Number of nested for loops: %d\n", nestedForLoopCount);
     printf("Number of while loops: %d\n", whileLoopCount);
+    printf("Number of nested while loops: %d\n", nestedWhileLoopCount);
     printf("Number of do-while loops: %d\n", doWhileLoopCount);
+    printf("Number of nested do-while loops: %d\n", nestedDoWhileLoopCount);
 
     fclose(yyin); // Close the file
         

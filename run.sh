@@ -1,4 +1,4 @@
-# clear
+clear
 lex LoopAnalyzer_v3.l
 gcc lex.yy.c
 # if os is windows
