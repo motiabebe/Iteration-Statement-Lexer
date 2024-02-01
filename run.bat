@@ -1,5 +1,4 @@
-# clear
 lex LoopsOnly.l
 gcc lex.yy.c
-./a.exe
+a.exe
 

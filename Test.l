@@ -115,7 +115,7 @@ do[ \t]*\n?[ \t]*\{[^}]*\}[ \t]*while[ \t]*\([^;]*\); {
 %%
 
 int main() {
-    yyin = fopen("C++/t2.cpp", "r");
+    yyin = fopen("C++/t3.cpp", "r");
     if (yyin == NULL) {
         printf("Failed to open file\n");
         return 1;
@@ -126,9 +126,9 @@ int main() {
     int totalLoops = forLoopCount + whileLoopCount + doWhileLoopCount;
 
     printf("\n -- Summary -- \n");
-    printf("Expected number of lines: %d\n", 88/26/44);
+    printf("Expected number of lines: %d\n", 88);
     printf("Total number of lines: %d\n", noOfLines);
-    printf("Expected number of loops: %d\n", 11/4/2);
+    printf("Expected number of loops: %d\n", 11);
     printf("Total number of loops: %d\n", totalLoops);
     printf("\n -- Breakdown of loops -- \n");
     printf("Number of for loops: %d\n", forLoopCount);
