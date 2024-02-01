@@ -21,8 +21,14 @@ int noOfLines = 1;
      */
 
     /* for ( */
-for[ \t]*\([ \t]*[ \n]* {
+for[ \t]*\($ {
     printf("Pattern found -> 'for (' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
+    /* for () */
+for[ \t]*\([^\n]*\)[ \t]*$ {
+    printf("Pattern found -> 'for ()' \n");
     printf("incomplete 'for' loop on line: %d\n", noOfLines);
 }
 
@@ -38,11 +44,19 @@ for[ \t]*\([^;]*;[^;]*;[ \t]*\n {
     printf("incomplete 'for' loop on line: %d\n", noOfLines);
 }
 
+    /* for () { } */
+for[ \t]*\([ \t]*\)[ \t]*\{[^}]*\}[ \t]*$ {
+    printf("Pattern found -> 'for () { }' \n");
+    printf("incomplete 'for' loop on line: %d\n", noOfLines);
+}
+
     /* for ( ; ; ) */
-for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*$ {
+for[ \t]*\([^;]*;[^\n;]*;[^\n)]*\)[ \t]*$ {
     printf("Pattern found -> 'for (;;)' \n");
     printf("incomplete 'for' loop on line: %d\n", noOfLines);
 }
+
+
 
     /* 
 
@@ -92,6 +106,12 @@ while[ \t]*\([^)]*\)[ \t]*[ \n] {
     whileLoopCount++;
 }
 
+    /* expression for nested while loop with brackets on the next line */
+while[ \t]*\([^)]*\)[ \t]*[ \n]*\{[ \n]*while[ \t]*\([^)]*\)[ \t]*[ \n]+\{[^}]*\}[^}]*\} {
+    printf("nested 'while' loop with brackets on the next line on line: %d\n", noOfLines);
+    nestedWhileLoopCount++;
+}
+
     /* 
 
         This section contains expressions for do-while loops.
@@ -112,6 +132,13 @@ do[ \n]*\{[ \n]*[^}]*[ \n]*\}[ \t]*while[ \t]*\([^;]*\); {
     printf("Found a 'do-while' loop with brackets on the next line on line: %d\n", noOfLines);
     doWhileLoopCount++;
 }
+
+    /* expression for nested do-while loop with brackets on the next line */
+do[ \n]*\{[ \n]*[^}]*[ \n]*\}[ \t]*while[ \t]*\([^;]*\);[ \n]*\{[ \n]*do[ \n]*\{[^}]*\}[ \t]*while[ \t]*\([^;]*\);[^}]*\} {
+    printf("nested 'do-while' loop with brackets on the next line on line: %d\n", noOfLines);
+    nestedDoWhileLoopCount++;
+}
+
 
 
 \n        { noOfLines++; } // Count number of lines
