@@ -79,6 +79,10 @@ for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]*\{[^}]*\} {
     printf("'for' loop with brackets on the next line on line: %d\n", noOfLines);
     forLoopCount++;
 }
+
+    /* expression for 
+
+
     /* expression for nested for loop with brackets on the next line */
 for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]*\{[ \n]*for[ \t]*\([^;]*;[^;]*;[^)]*\)[ \t]*[ \n]+\{[^}]*\}[^}]*\} {
     printf("nested 'for' loop with brackets on the next line on line: %d\n", noOfLines);
